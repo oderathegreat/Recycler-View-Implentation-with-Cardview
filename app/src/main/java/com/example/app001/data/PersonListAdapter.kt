@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app001.R
 import com.example.app001.model.Person
 
 class PersonListAdapter (private val list: ArrayList<Person>,
                          private val context:Context) : RecyclerView.Adapter<PersonListAdapter.ViewHolder>() {
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View, context: Context) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItem(person: Person) {
             var name: TextView = itemView.findViewById(R.id.txtName) as TextView
@@ -19,6 +20,13 @@ class PersonListAdapter (private val list: ArrayList<Person>,
 
             name.text = person.name
             age.text = person.age.toString()
+
+            //making our items clickable
+            itemView.setOnClickListener {
+                Toast.makeText(context, name.text, Toast.LENGTH_SHORT).show()
+
+
+            }
 
 
         }
@@ -31,7 +39,7 @@ class PersonListAdapter (private val list: ArrayList<Person>,
     ): PersonListAdapter.ViewHolder {
         //create view from xml
         val view = LayoutInflater.from(context).inflate(R.layout.list_row, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, context)
 
     }
 
